@@ -12,6 +12,8 @@ const calendrierDuCrayon = {
     juin: 1,
 };
 
+
+let calendrierDuCrayonInverse = ["Juin", "Mai", "Avril", "Mars", "Fevrier", "Janvier", "Decembre", "Novembre", "Octobre", "Septembre"];
 function drawMyPen(mois){
    
     const etages = calendrierDuCrayon[mois];
@@ -128,10 +130,15 @@ boutonValider.addEventListener('click', function() {
     Zone.innerHTML = "";
     clearInterval(stopConfetti);
     const mois = document.getElementById('mois').value;
+    
     drawMyPenHTML(mois);
 });
 
 function afficherCrayonHTML(mois){
+
+       let moisEnCours = calendrierDuCrayonInverse[mois-1];
+       const moisActuel = document.createElement('p');
+       moisActuel.innerHTML = "Mois en cours : " + moisEnCours;
        
     const corps = mois;
     let crayon = '';
@@ -171,7 +178,9 @@ let decompte = corps
             decompte--;
             afficherCrayonHTML(decompte);
             dessinCrayon.innerHTML = crayon;
+            
             Zone.appendChild(dessinCrayon);
+            Zone.appendChild(moisActuel);
         }else {
             messageFinHTML();
 
@@ -228,3 +237,4 @@ function launchConfetti() {
       spread: 160
     });
   }
+ 
