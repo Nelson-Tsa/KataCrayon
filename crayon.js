@@ -89,8 +89,6 @@ let decompte = corps
     }else {
         return ;
     }
- 
-
 }
 
 function drawMyPen1(mois){
@@ -123,8 +121,12 @@ function dessinerTailleCrayon(){
 
 const Zone = document.getElementById('zoneCrayon')
 const boutonValider = document.getElementById('valider');
+let stopConfetti ;
+
 
 boutonValider.addEventListener('click', function() {
+    Zone.innerHTML = "";
+    clearInterval(stopConfetti);
     const mois = document.getElementById('mois').value;
     drawMyPenHTML(mois);
 });
@@ -135,26 +137,26 @@ function afficherCrayonHTML(mois){
     let crayon = '';
 
     // Dessin de la mine
-    crayon += '    /\\\n';
-    crayon += '   /__\\\n';
+    crayon += ' /\\\n';
+    crayon += ' /__\\\n';
 
     // Dessin du corps
     for (let i = 0; i < corps; i++) {
-        crayon += '   ||||\n';
+        crayon += ' ||||\n';
     }
 if (corps > 4) {
-        crayon += '   |__|\n';
+        crayon += ' |__|\n';
     
     // Dessin de la gomme
-        crayon += '   |__|\n';
+        crayon += ' |__|\n';
     
 
     // Dessin de la base
-    crayon += '   |  |\n';
-    crayon += '   |__|\n';
+    crayon += ' |  |\n';
+    crayon += ' |__|\n';
 }else {
-    crayon += '   |__|\n';
-    crayon += '   |__|\n';
+    crayon += ' |__|\n';
+    crayon += ' |__|\n';
 }
 let decompte = corps
     setTimeout(() => {  
@@ -171,10 +173,8 @@ let decompte = corps
             dessinCrayon.innerHTML = crayon;
             Zone.appendChild(dessinCrayon);
         }else {
-            Zone.innerHTML = "";
-            const messageFin = document.createElement('p');
-            messageFin.innerHTML = "Bonne vacances !! ";
-            Zone.appendChild(messageFin);
+            messageFinHTML();
+
             return ;
         }
     }, 2000);
@@ -188,9 +188,6 @@ function drawMyPenHTML(mois){
     
 }
 
- //drawMyPenHTML('septembre');
-
-
 
 function dessinerTailleCrayonHTML(){
     // Zone.innerHTML = "";
@@ -198,14 +195,36 @@ function dessinerTailleCrayonHTML(){
     dessinTailleCrayon.style.lineHeight = '0.8';
    
    let tailleCrayon ="";
-   tailleCrayon += " ________\n<br>"
+   tailleCrayon += "________\n<br>"
    tailleCrayon += "|________|\n<br>"
     tailleCrayon += "|  * *   |\n<br>"
     tailleCrayon += "\\________/\n<br>"
     tailleCrayon += " \\  /\\  /\n<br>"
-    tailleCrayon += "  -/  \\-<br>"
+    tailleCrayon += " -/  \\-<br>"
     dessinTailleCrayon.innerHTML = tailleCrayon;
     Zone.appendChild(dessinTailleCrayon);
     console.log(tailleCrayon);
 }
 
+
+function messageFinHTML(){
+    launchConfetti();
+    Zone.innerHTML = "";
+    const messageFin = document.createElement('p');
+    messageFin.innerHTML = "Bonne vacances !! ";
+    Zone.appendChild(messageFin);
+    console.log("Bonne vacances !!");
+    
+    stopConfetti = setInterval(launchConfetti, 1000)
+}
+
+
+
+function launchConfetti() {
+    const canvas = document.querySelector('#confetti-canvas')
+    let myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
+    myConfetti({
+      particleCount: 100,
+      spread: 160
+    });
+  }
