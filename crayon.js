@@ -197,7 +197,7 @@ function dessinerTailleCrayonHTML(){
    let tailleCrayon ="";
    tailleCrayon += "________\n<br>"
    tailleCrayon += "|________|\n<br>"
-    tailleCrayon += "|  * *   |\n<br>"
+    tailleCrayon += "|  *  *  |\n<br>"
     tailleCrayon += "\\________/\n<br>"
     tailleCrayon += " \\  /\\  /\n<br>"
     tailleCrayon += " -/  \\-<br>"
